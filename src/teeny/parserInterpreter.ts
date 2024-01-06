@@ -1,4 +1,4 @@
-import { TokenType, TokenTypeKind } from "./lexer.ts";
+import type { TokenType, TokenTypeKind } from "./lexer.ts";
 
 function isIdentifier(
   token: TokenType | undefined,
@@ -184,6 +184,7 @@ export class ParserInterpreter {
         if (typeof process === "object" && process.versions && process.versions.node) {
           let input = "";
           // read single number from node (or bun) console
+          // @ts-ignore
           for await (input of console) {
             break;
           }

@@ -1,5 +1,6 @@
 import { CodeEmitter } from "./emitter.ts";
-import { Lexer, TokenType, TokenTypeKind } from "./lexer.ts";
+import type { TokenType, TokenTypeKind } from "./lexer.ts";
+import { Lexer } from "./lexer.ts";
 
 function isIdentifier(
   token: TokenType | undefined,

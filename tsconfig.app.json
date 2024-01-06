@@ -1,13 +1,14 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
-  "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "baseUrl": ".",
     "composite": true,
     "noEmit": true,
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }
-  }
+  },
+  "exclude": ["src/**/__tests__/*"],
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"]
 }
