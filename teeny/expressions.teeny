@@ -1,0 +1,8 @@
+LET bar = 7
+LET foo = bar * 3 + 2
+IF foo > 0 THEN
+  WHILE foo > 0 REPEAT
+    PRINT foo
+    LET foo = foo - 1
+ ENDWHILE
+ENDIF

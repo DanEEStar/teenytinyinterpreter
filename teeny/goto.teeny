@@ -1,0 +1,11 @@
+LET a = 5
+LABEL loop
+PRINT "hello, world!"
+LET a = a - 1
+
+IF a > 0 THEN
+PRINT a
+GOTO loop
+ENDIF
+
+PRINT "done"

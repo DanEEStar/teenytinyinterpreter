@@ -1,0 +1,10 @@
+PRINT "hello world"
+LET a = 123
+PRINT a
+LET b = 2 * 3
+PRINT b
+LET c = 2 + 3
+PRINT c
+LET d = 2 * 3 + 4 * 5
+PRINT d
+PRINT 2 * 3 + 4 * 5

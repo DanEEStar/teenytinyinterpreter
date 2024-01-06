@@ -1,0 +1,8 @@
+LET a = 3
+LET b = 2
+IF a < b THEN
+    PRINT "a is less than b"
+ENDIF
+IF b < a THEN
+    PRINT "b is less than a"
+ENDIF
