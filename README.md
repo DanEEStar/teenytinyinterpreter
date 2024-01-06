@@ -1,46 +1,37 @@
-# teenytinyinterpreter
+# Teeny Tiny Interpreter
 
-This template should help get you started developing with Vue 3 in Vite.
+This small interpreter is based on the project [Teeny Tiny Compiler](https://github.com/AZHenley/teenytinycompiler) 
+by [Austin Z. Henley](https://austinhenley.com). 
+Please read his excellent tutorial [Let's make a Teeny Tiny compiler, part 1](https://austinhenley.com/blog/teenytinycompiler1.html) 
+as well as [Part 2](https://austinhenley.com/blog/teenytinycompiler2.html) 
+and [Part 3](https://austinhenley.com/blog/teenytinycompiler3.html).
 
-## Recommended IDE Setup
+Here is an implementation of the compiler (`./src/teeny/parserCompiler.ts`), 
+which is based on the tutorial and will transpile the Teeny code to C.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+The interpreter is an adaption of the tutorial (`./src/teeny/parserInterpreter.ts`) 
+and will execute the Teeny Tiny code directly. It is written in TypeScript and can run in the browser 
+or via [Bun](https://bun.sh), which can execute the TypeScript code directly.
 
-## Type Support for `.vue` Imports in TS
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+```bash
+bun run src/teeny/interpreterScript.ts teeny/hello.teeny 
+```
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+or run the compiler
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+```bash
+bun run src/teeny/compilerScript.ts teeny/hello.teeny 
+```
 
-## Customize configuration
+## Web version
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+The web version is a simple Vue.js app. It can be started with:
 
-## Project Setup
-
-```sh
+```bash
+# install dependencies
 npm install
-```
 
-### Compile and Hot-Reload for Development
-
-```sh
+# run dev server
 npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
 ```
