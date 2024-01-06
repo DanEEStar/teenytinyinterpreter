@@ -13,8 +13,35 @@ export class ParserInterpreter {
   labelsDeclared: Map<string, number> = new Map();
   labelsGotoed: Set<string> = new Set();
 
-  constructor(tokens: TokenType[]) {
+  numStatements: number = 0;
+  numOutputLines: number = 0;
+
+  outputFn: (line: string) => void = (line: string) => {
+    this.numOutputLines += 1;
+    console.log(line);
+  };
+  outputErrorFn: (line: string) => void = (line: string) => {
+    console.error(line);
+  };
+
+  constructor(
+    tokens: TokenType[],
+    outputFn: ((line: string) => void) | undefined = undefined,
+    outputErrorFn: ((line: string) => void) | undefined = undefined,
+  ) {
     this.tokens = tokens;
+    if (outputFn) {
+      this.outputFn = (line) => {
+        this.numOutputLines += 1;
+        if (this.numOutputLines > 1000) {
+          this.abort("More than 1000 lines of output -> infinite loop?");
+        }
+        outputFn(line);
+      };
+    }
+    if (outputErrorFn) {
+      this.outputErrorFn = outputErrorFn;
+    }
   }
 
   getCurrentToken() {
@@ -45,7 +72,7 @@ export class ParserInterpreter {
   }
 
   abort(message: string) {
-    console.error(`${message}`);
+    this.outputErrorFn(`${message}`);
     this.currentTokenIndex = this.tokens.length;
     throw new Error(`${message}`);
   }
@@ -72,16 +99,22 @@ export class ParserInterpreter {
   }
 
   async statement() {
+    this.numStatements += 1;
+
+    if (this.numStatements > 10000) {
+      this.abort("More than 10000 executed statements -> infinite loop?");
+    }
+
     if (this.checkToken("PRINT")) {
       this.nextToken();
       const currentToken = this.getCurrentToken();
 
       if (currentToken.kind === "STRING") {
-        console.log(currentToken.value);
+        this.outputFn(currentToken.value);
         this.nextToken();
       } else {
         const value = this.expression();
-        console.log(value);
+        this.outputFn(value.toString());
         this.nextToken();
       }
     } else if (this.checkToken("IF")) {
@@ -212,7 +245,7 @@ export class ParserInterpreter {
     } else {
       const currentToken = this.getCurrentToken();
       this.abort(
-        `Invalid statement at ${currentToken.text} line ${currentToken.line} (${currentToken.kind})`,
+        `Invalid statement at "${currentToken.text}" line ${currentToken.line} (${currentToken.kind})`,
       );
       return;
     }

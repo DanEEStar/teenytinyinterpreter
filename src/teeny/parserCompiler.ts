@@ -176,7 +176,7 @@ export class ParserCompiler {
       this.match("IDENTIFIER");
     } else {
       this.abort(
-        `Invalid statement at ${this.currentToken?.text} line ${this.currentToken?.line} (${this.currentToken?.kind})`,
+        `Invalid statement at "${this.currentToken?.text}" line ${this.currentToken?.line} (${this.currentToken?.kind})`,
       );
     }
 
